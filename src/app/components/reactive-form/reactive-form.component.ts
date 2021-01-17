@@ -1,11 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { FormControlModel, FormGroupModel } from 'src/app/models/form.model';
+import { trigger, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-reactive-form',
   templateUrl: './reactive-form.component.html',
-  styleUrls: ['./reactive-form.component.scss']
+  styleUrls: ['./reactive-form.component.scss'],
+  animations: [
+    trigger('slideInFromRight', [
+      transition(':enter', [
+        style({ transform: 'translateX(150%)' }),
+        animate('500ms {{delay}} ease-in', style({ transform: 'none' })),
+      ], { params: { delay: '1000ms'}}),
+      transition(':leave', [
+        style({ transform: 'none' }),
+        animate('500ms {{delay}} ease-in', style({ transform: 'translateX(150%)' })),
+      ], { params: { delay: '1000ms'}})
+    ])
+  ]
 })
 export class ReactiveFormComponent implements OnInit {
 

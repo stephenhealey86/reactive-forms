@@ -1,5 +1,5 @@
 <ng-container *ngIf="isFormControlModel() else formGroupModel">
-    <div class="form-group">
+    <div class="form-group" [@slideInFromRight]="{ value: '', params: { delay: delay * 250 + 'ms'}}">
       <label [for]="control.name">{{control.label}}</label>
       <div class="form-control" [class]="{'form-error': control.errorMessages?.length > 0}">
           <input type="text" [name]="control.name" [formControl]="control" [placeholder]="control.placeholder">
@@ -9,7 +9,7 @@
     </div>
   </ng-container>
   <ng-template #formGroupModel>
-    <app-form-control [control]="controlItem"
-      *ngFor="let controlItem of getControls(control)"></app-form-control>
+    <app-form-control [control]="controlItem" [delay]="i + offset"
+      *ngFor="let controlItem of getControls(control); let i = index;"></app-form-control>
     <div class="form-error" *ngFor="let error of control.errorMessages">{{error}}</div>
   </ng-template>

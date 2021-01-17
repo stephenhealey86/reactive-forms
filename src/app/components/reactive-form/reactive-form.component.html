@@ -1,7 +1,8 @@
 <div class="form">
   <div class="form-title">Sign Up</div>
   <form [formGroup]="form">
-    <app-form-control [control]="control" *ngFor="let control of getControls()"></app-form-control>
-    <button *ngIf="form.valid" class="form-btn">Sign Up</button>
+      <app-form-control *ngFor="let control of getControls(); let i = index; let c = count;"
+          [control]="control" [delay]="i + 1" [offset]="c"></app-form-control>
+      <button *ngIf="form.valid" [@slideInFromRight]="{ value: '', params: { delay: 250 + 'ms'}}" class="form-btn">Sign Up</button>
   </form>
 </div>
