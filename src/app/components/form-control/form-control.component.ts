@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControlModel } from '../../models/form.model';
 
 @Component({
@@ -6,13 +6,17 @@ import { FormControlModel } from '../../models/form.model';
   templateUrl: './form-control.component.html',
   styleUrls: ['./form-control.component.scss']
 })
-export class FormControlComponent implements OnInit {
+export class FormControlComponent implements OnInit, OnDestroy {
 
   @Input() control: FormControlModel;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    this.control.unsubscribe();
   }
 
 }

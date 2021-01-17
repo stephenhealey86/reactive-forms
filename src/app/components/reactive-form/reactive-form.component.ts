@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { takeWhile, debounceTime } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, Validators } from '@angular/forms';
 import { FormControlModel } from 'src/app/models/form.model';
 
 @Component({
@@ -8,7 +7,7 @@ import { FormControlModel } from 'src/app/models/form.model';
   templateUrl: './reactive-form.component.html',
   styleUrls: ['./reactive-form.component.scss']
 })
-export class ReactiveFormComponent implements OnInit, OnDestroy {
+export class ReactiveFormComponent implements OnInit {
 
   public form: FormGroup;
 
@@ -22,7 +21,7 @@ export class ReactiveFormComponent implements OnInit, OnDestroy {
         name: 'firstname',
         validation: {
           required: 'Please enter your firstname.',
-          minlength: 'Your first name must be atleast 3 characters.',
+          minlength: 'Your first name must be at least 3 characters.',
         },
         icon: 'fas fa-user'
       }, '', [
@@ -30,9 +29,6 @@ export class ReactiveFormComponent implements OnInit, OnDestroy {
         Validators.minLength(3)
       ])
     });
-  }
-
-  ngOnDestroy(): void {
   }
 
 }
