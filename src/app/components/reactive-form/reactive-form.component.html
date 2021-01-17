@@ -1,7 +1,7 @@
 <div class="form">
   <div class="form-title">Sign Up</div>
   <form [formGroup]="form">
-    <app-form-control [control]="form.get('firstname')"></app-form-control>
+    <app-form-control [control]="control" *ngFor="let control of getControls()"></app-form-control>
     <button *ngIf="form.valid" class="form-btn">Sign Up</button>
   </form>
 </div>
