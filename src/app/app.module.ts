@@ -4,11 +4,13 @@ import { ReactiveFormComponent } from './components/reactive-form/reactive-form.
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
+import { FormControlComponent } from './components/form-control/form-control.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ReactiveFormComponent
+    ReactiveFormComponent,
+    FormControlComponent
   ],
   imports: [
     BrowserModule,
