@@ -3,10 +3,11 @@
   <form [formGroup]="form">
     <div class="form-group">
       <label for="firstname">First Name</label>
-      <div class="form-control">
+      <div class="form-control" [class]="{'form-error': errors.firstname?.length > 0}">
           <input type="text" name="firstname" [formControl]="form.get('firstname')" placeholder="First Name">
           <i class="fas fa-user"></i>
       </div>
+      <div class="form-error" *ngFor="let error of errors.firstname">{{error}}</div>
     </div>
       <button *ngIf="form.valid" class="form-btn">Sign Up</button>
   </form>
