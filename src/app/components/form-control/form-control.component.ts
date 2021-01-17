@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormControlModel } from '../../models/form.model';
+import { FormControlModel, FormGroupModel } from '../../models/form.model';
 
 @Component({
   selector: 'app-form-control',
@@ -17,6 +17,14 @@ export class FormControlComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.control.unsubscribe();
+  }
+
+  public isFormControlModel(): boolean {
+    return this.control instanceof FormControlModel;
+  }
+
+  public getControls(group: FormGroupModel): Array<FormControlModel> {
+    return Object.values(group.controls) as Array<FormControlModel>;
   }
 
 }

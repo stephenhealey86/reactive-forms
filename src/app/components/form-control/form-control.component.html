@@ -1,8 +1,15 @@
-<div class="form-group">
-    <label [for]="control.name">{{control.label}}</label>
-    <div class="form-control" [class]="{'form-error': control.errorMessages?.length > 0}">
-        <input type="text" [name]="control.name" [formControl]="control" [placeholder]="control.placeholder">
-        <i class="fas fa-user"></i>
+<ng-container *ngIf="isFormControlModel() else formGroupModel">
+    <div class="form-group">
+      <label [for]="control.name">{{control.label}}</label>
+      <div class="form-control" [class]="{'form-error': control.errorMessages?.length > 0}">
+          <input type="text" [name]="control.name" [formControl]="control" [placeholder]="control.placeholder">
+          <i *ngIf="control.icon" [class]="control.icon"></i>
+      </div>
+      <div class="form-error" *ngFor="let error of control.errorMessages">{{error}}</div>
     </div>
+  </ng-container>
+  <ng-template #formGroupModel>
+    <app-form-control [control]="controlItem"
+      *ngFor="let controlItem of getControls(control)"></app-form-control>
     <div class="form-error" *ngFor="let error of control.errorMessages">{{error}}</div>
-</div>
+  </ng-template>

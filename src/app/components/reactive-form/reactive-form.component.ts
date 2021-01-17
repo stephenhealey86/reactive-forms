@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
-import { FormControlModel } from 'src/app/models/form.model';
+import { AbstractControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { FormControlModel, FormGroupModel } from 'src/app/models/form.model';
 
 @Component({
   selector: 'app-reactive-form',
@@ -53,12 +53,53 @@ export class ReactiveFormComponent implements OnInit {
       }, '', [
         Validators.required,
         Validators.email
+      ]),
+      passwordGroup: new FormGroupModel({
+        name: 'passwordGroup',
+        validation: {
+          passwordMatch: 'Your passwords must match.'
+        }
+      }, {
+        password: new FormControlModel({
+          label: 'Password',
+          name: 'password',
+          placeholder: 'Password',
+          icon: 'fas fa-lock',
+          validation: {
+            required: 'Please enter your password.',
+            minlength: 'Password needs to be 6 or more characters.',
+          }
+        }, '', [
+          Validators.required,
+          Validators.minLength(6)
+        ]),
+        confirmPassword: new FormControlModel({
+          label: 'Confirm Password',
+          name: 'confirmPassword',
+          placeholder: 'Confirm Password',
+          icon: 'fas fa-lock',
+          validation: {
+            required: 'Please confirm your password.',
+            minlength: 'Password needs to be 6 or more characters.',
+          }
+        }, '', [
+          Validators.required,
+          Validators.minLength(6)
+        ])
+      }, [
+        this.passwordValidator
       ])
     });
   }
 
-  public getControls(): Array<FormControlModel> {
-    return Object.values(this.form.controls) as Array<FormControlModel>;
+  public getControls(): Array<FormControlModel | FormGroupModel> {
+    return Object.values(this.form.controls) as Array<FormControlModel | FormGroupModel>;
+  }
+
+  private passwordValidator(control: AbstractControl): ValidationErrors | null {
+    const password = control.get('password');
+    const confirmPassword = control.get('confirmPassword');
+    return password.dirty && confirmPassword.dirty && password.value !== confirmPassword.value ? { passwordMatch: true } : null;
   }
 
 }
